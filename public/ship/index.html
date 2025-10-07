@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ship Now - UPS-Exglobal</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
-     <!-- Navigation  -->
+    <!-- Navigation  -->
     <nav class="navbar">
         <div class="container">
             <div class="nav-content">
@@ -17,24 +19,24 @@
                     <span>UPS-Exglobal</span>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="/index.html" class="active">Home</a></li>
-                    <li><a href="/public/Track/index.html">Track</a></li>
-                    <li><a href="/public/ship/index.html">Ship Now</a></li>
-                    <li><a href="/public/shop/index.html">Shop</a></li>
-                    <li><a href="/public/service/index.html">Services</a></li>
-                    <li><a href="/public/about/index.html">About</a></li>
-                    <li><a href="/public/contact/index.html">Contact</a></li>
-                    <li><a href="/public/admin/index.html">Admin</a></li>
-                    <li><a href="/public/login/index.html" class="btn-login">Login</a></li>
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="public/Track/index.html">Track</a></li>
+                    <li><a href="public/ship/index.html">Ship Now</a></li>
+                    <li><a href="public/shop/index.html">Shop</a></li>
+                    <li><a href="public/service/index.html">Services</a></li>
+                    <li><a href="public/about/index.html">About</a></li>
+                    <li><a href="public/contact/index.html">Contact</a></li>
+                    <li><a href="public/admin/index.html">Admin</a></li>
+                    <li><a href="public/login/index.html" class="btn-login">Login</a></li>
                 </ul>
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <button class="mobile-menu-btn" title="toggleMobileMenu" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
         </div>
     </nav>
 
-     <!-- Ship Page Content  -->
+    <!-- Ship Page Content  -->
     <section class="page-header">
         <div class="container">
             <h1>Create Shipment</h1>
@@ -65,184 +67,201 @@
                 </div>
 
                 <form id="shipmentForm" class="shipment-form">
-                     Step 1: Sender Information 
+                    Step 1: Sender Information
                     <div class="form-step active" id="step1">
                         <h2>Sender Information</h2>
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Full Name *</label>
-                                <input type="text" name="senderName" required>
+                                <input type="text" title="senderName" name="senderName" required>
                             </div>
                             <div class="form-group">
                                 <label>Email *</label>
-                                <input type="email" name="senderEmail" required>
+                                <input type="email" title="senderEmail" name="senderEmail" required>
                             </div>
                             <div class="form-group">
                                 <label>Phone *</label>
-                                <input type="tel" name="senderPhone" required>
+                                <input type="tel" title="senderPhone" name="senderPhone" required>
                             </div>
                             <div class="form-group">
                                 <label>Company (Optional)</label>
-                                <input type="text" name="senderCompany">
+                                <input type="text" title="senderCompany" name="senderCompany">
                             </div>
                             <div class="form-group full-width">
                                 <label>Address *</label>
-                                <input type="text" name="senderAddress" required>
+                                <input type="text" title="senderAddress" name="senderAddress" required>
                             </div>
                             <div class="form-group">
                                 <label>City *</label>
-                                <input type="text" name="senderCity" required>
+                                <input type="text" title="senderCity" name="senderCity" required>
                             </div>
                             <div class="form-group">
                                 <label>State/Province *</label>
-                                <input type="text" name="senderState" required>
+                                <input type="text" title="senderState" name="senderState" required>
                             </div>
                             <div class="form-group">
                                 <label>ZIP/Postal Code *</label>
-                                <input type="text" name="senderZip" required>
+                                <input type="text" title="senderZip" name="senderZip" required>
                             </div>
                             <div class="form-group">
                                 <label>Country *</label>
-                                <input type="text" name="senderCountry" required>
+                                <input type="text" title="senderCountry" name="senderCountry" required>
                             </div>
                         </div>
                         <div class="form-buttons">
-                            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next <i class="fas fa-arrow-right"></i></button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(2)">Next <i
+                                    class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
 
-                     <!-- Step 2: Receiver Information  -->
+                    <!-- Step 2: Receiver Information  -->
                     <div class="form-step" id="step2">
                         <h2>Receiver Information</h2>
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Full Name *</label>
-                                <input type="text" name="receiverName" required>
+                                <input type="text" title="receiverName" name="receiverName" required>
                             </div>
                             <div class="form-group">
                                 <label>Email *</label>
-                                <input type="email" name="receiverEmail" required>
+                                <input type="email" title="receiverEmail" name="receiverEmail" required>
                             </div>
                             <div class="form-group">
                                 <label>Phone *</label>
-                                <input type="tel" name="receiverPhone" required>
+                                <input type="tel" title="receiverPhone" name="receiverPhone" required>
                             </div>
                             <div class="form-group">
                                 <label>Company (Optional)</label>
-                                <input type="text" name="receiverCompany">
+                                <input type="text" title="receiverCompany" name="receiverCompany">
                             </div>
                             <div class="form-group full-width">
                                 <label>Address *</label>
-                                <input type="text" name="receiverAddress" required>
+                                <input type="text" title="receiverAddress" name="receiverAddress" required>
                             </div>
                             <div class="form-group">
                                 <label>City *</label>
-                                <input type="text" name="receiverCity" required>
+                                <input type="text" title="receiverCity" name="receiverCity" required>
                             </div>
                             <div class="form-group">
                                 <label>State/Province *</label>
-                                <input type="text" name="receiverState" required>
+                                <input type="text" title="receiverState" name="receiverState" required>
                             </div>
                             <div class="form-group">
                                 <label>ZIP/Postal Code *</label>
-                                <input type="text" name="receiverZip" required>
+                                <input type="text" title="receiverZip" name="receiverZip" required>
                             </div>
                             <div class="form-group">
                                 <label>Country *</label>
-                                <input type="text" name="receiverCountry" required>
+                                <input type="text" title="receiverCountry" name="receiverCountry" required>
                             </div>
                         </div>
                         <div class="form-buttons">
-                            <button type="button" class="btn btn-secondary" onclick="prevStep(1)"><i class="fas fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next <i class="fas fa-arrow-right"></i></button>
+                            <button type="button" class="btn btn-secondary" onclick="prevStep(1)"><i
+                                    class="fas fa-arrow-left"></i> Back</button>
+                            <button type="button" class="btn btn-primary" onclick="nextStep(3)">Next <i
+                                    class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
 
-                     <!-- Step 3: Package Details  -->
+                    <!-- Step 3: Package Details  -->
                     <div class="form-step" id="step3">
                         <h2>Package Details</h2>
                         <div class="form-grid">
                             <div class="form-group">
                                 <label>Package Type *</label>
-                                <select name="packageType" required>
-                                    <option value="">Select type</option>
+                                <select name="packageType" title="packagetype" required>
+                                    <option value="">Select package type</option>
                                     <option value="envelope">Envelope</option>
                                     <option value="box">Box</option>
                                     <option value="pallet">Pallet</option>
                                 </select>
                             </div>
+
                             <div class="form-group">
                                 <label>Weight (kg) *</label>
-                                <input type="number" name="weight" step="0.1" required>
+                                <input type="number" name="weight" step="0.1" placeholder="e.g. 2.5" required>
                             </div>
+
                             <div class="form-group">
                                 <label>Length (cm) *</label>
-                                <input type="number" name="length" required>
+                                <input type="number" name="length" placeholder="e.g. 40" required>
                             </div>
+
                             <div class="form-group">
                                 <label>Width (cm) *</label>
-                                <input type="number" name="width" required>
+                                <input type="number" name="width" placeholder="e.g. 25" required>
                             </div>
+
                             <div class="form-group">
                                 <label>Height (cm) *</label>
-                                <input type="number" name="height" required>
+                                <input type="number" name="height" placeholder="e.g. 15" required>
                             </div>
+
                             <div class="form-group">
                                 <label>Shipping Service *</label>
-                                <select name="service" required>
-                                    <option value="">Select service</option>
+                                <select name="service" title="service" required>
+                                    <option value="">Select shipping service</option>
                                     <option value="express">Express (1-2 days) - $50</option>
                                     <option value="standard">Standard (3-5 days) - $25</option>
                                     <option value="economy">Economy (7-10 days) - $15</option>
                                 </select>
                             </div>
+
                             <div class="form-group full-width">
                                 <label>Package Contents *</label>
-                                <textarea name="contents" rows="3" required></textarea>
+                                <textarea name="contents" rows="3" placeholder="Describe items inside the package..."
+                                    required></textarea>
                             </div>
+
                             <div class="form-group full-width">
                                 <label>Declared Value ($) *</label>
-                                <input type="number" name="value" step="0.01" required>
+                                <input type="number" name="value" step="0.01" placeholder="e.g. 120.50" required>
                             </div>
-                        </div>
-                        <div class="form-buttons">
-                            <button type="button" class="btn btn-secondary" onclick="prevStep(2)"><i class="fas fa-arrow-left"></i> Back</button>
-                            <button type="button" class="btn btn-primary" onclick="nextStep(4)">Next <i class="fas fa-arrow-right"></i></button>
                         </div>
                     </div>
 
-                     <!-- Step 4: Payment  -->
-                    <div class="form-step" id="step4">
-                        <h2>Payment Information</h2>
-                        <div class="form-grid">
-                            <div class="form-group full-width">
-                                <label>Card Number *</label>
-                                <input type="text" name="cardNumber" placeholder="1234 5678 9012 3456" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Expiry Date *</label>
-                                <input type="text" name="expiry" placeholder="MM/YY" required>
-                            </div>
-                            <div class="form-group">
-                                <label>CVV *</label>
-                                <input type="text" name="cvv" placeholder="123" required>
-                            </div>
-                            <div class="form-group full-width">
-                                <label>Cardholder Name *</label>
-                                <input type="text" name="cardName" required>
-                            </div>
-                        </div>
-                        <div class="form-buttons">
-                            <button type="button" class="btn btn-secondary" onclick="prevStep(3)"><i class="fas fa-arrow-left"></i> Back</button>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Complete Shipment</button>
-                        </div>
+                    <div class="form-buttons">
+                        <button type="button" class="btn btn-secondary" onclick="prevStep(2)"><i
+                                class="fas fa-arrow-left"></i> Back</button>
+                        <button type="button" class="btn btn-primary" onclick="nextStep(4)">Next <i
+                                class="fas fa-arrow-right"></i></button>
                     </div>
-                </form>
             </div>
+
+            <!-- Step 4: Payment  -->
+            <div class="form-step" id="step4">
+                <h2>Payment Information</h2>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Card Number *</label>
+                        <input type="text" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Expiry Date *</label>
+                        <input type="text" name="expiry" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label>CVV *</label>
+                        <input type="text" name="cvv" placeholder="123" required>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Cardholder Name *</label>
+                        <input type="text" title="cardName" name="cardName" required>
+                    </div>
+                </div>
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="prevStep(3)"><i
+                            class="fas fa-arrow-left"></i> Back</button>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-check"></i> Complete
+                        Shipment</button>
+                </div>
+            </div>
+            </form>
+        </div>
         </div>
     </section>
 
-     <!-- Receipt Modal  -->
+    <!-- Receipt Modal  -->
     <div id="receiptModal" class="modal">
         <div class="modal-content receipt-modal">
             <div class="receipt" id="receipt">
@@ -254,7 +273,7 @@
                     <h2>Shipping Receipt</h2>
                     <p class="receipt-date" id="receiptDate"></p>
                 </div>
-                
+
                 <div class="receipt-tracking-box">
                     <div class="tracking-label">Tracking Number</div>
                     <div class="tracking-number" id="receiptTrackingNumber">UEX123456789</div>
@@ -310,7 +329,7 @@
         </div>
     </div>
 
-     <!-- Footer  -->
+    <!-- Footer  -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -318,26 +337,26 @@
                     <h3>UPS-Exglobal</h3>
                     <p>Your trusted partner for global shipping and logistics solutions.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
                     <h4>Services</h4>
                     <ul>
-                        <li><a href="/public/ship/index.html">Air Freight</a></li>
-                        <li><a href="/public/ship/index.html">Ocean Freight</a></li>
-                        <li><a href="/public/ship/index.html">Ground Shipping</a></li>
-                        <li><a href="/public/ship/index.html">Warehousing</a></li>
+                        <li><a href="public/ship/index.html">Air Freight</a></li>
+                        <li><a href="public/ship/index.html">Ocean Freight</a></li>
+                        <li><a href="public/ship/index.html">Ground Shipping</a></li>
+                        <li><a href="public/ship/index.html">Warehousing</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Company</h4>
                     <ul>
-                        <li><a href="/public/about/index.html">About Us</a></li>
-                        <li><a href="/public/contact/index.html">Contact</a></li>
+                        <li><a href="public/about/index.html">About Us</a></li>
+                        <li><a href="public/contact/index.html">Contact</a></li>
                         <li><a href="#">Careers</a></li>
                         <li><a href="#">Press</a></li>
                     </ul>
@@ -345,7 +364,7 @@
                 <div class="footer-section">
                     <h4>Support</h4>
                     <ul>
-                        <li><a href="/public/Track/index.html">Track Package</a></li>
+                        <li><a href="public/Track/index.html">Track Package</a></li>
                         <li><a href="#">Help Center</a></li>
                         <li><a href="#">Shipping Rates</a></li>
                         <li><a href="#">Terms & Conditions</a></li>
@@ -366,6 +385,7 @@
         </div>
     </footer>
 
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
 </body>
+
 </html>

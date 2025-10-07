@@ -78,7 +78,7 @@ let autoRefreshInterval = null
 
 // Initialize Admin Dashboard
 document.addEventListener("DOMContentLoaded", () => {
-  if (window.location.pathname.includes("/public/admin/index.html")) {
+  if (window.location.pathname.includes("public/admin/index.html")) {
     // Load packages from localStorage or use default
     const savedPackages = localStorage.getItem("packages")
     if (savedPackages) {

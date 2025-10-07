@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - UPS-Exglobal</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -17,11 +17,11 @@
                     <span>UPS-Exglobal Admin</span>
                 </div>
                 <ul class="nav-links">
-                    <li><a href="/public/admin/index.html" class="active">Dashboard</a></li>
-                    <li><a href="/index.html">View Site</a></li>
-                    <li><a href="/public/login/index.html" class="btn-login">Logout</a></li>
+                    <li><a href="public/admin/index.html" class="active">Dashboard</a></li>
+                    <li><a href="index.html">View Site</a></li>
+                    <li><a href="public/login/index.html" class="btn-login">Logout</a></li>
                 </ul>
-                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <button class="mobile-menu-btn" title="toggleMobileMenu" onclick="toggleMobileMenu()">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
@@ -131,7 +131,7 @@
                     <h2><i class="fas fa-boxes"></i> All Packages</h2>
                     <div class="table-controls">
                         <input type="text" id="searchPackages" placeholder="Search packages..." onkeyup="searchPackages()">
-                        <select id="statusFilter" onchange="filterPackages()">
+                        <select id="statusFilter" title="filterPackages" onchange="filterPackages()">
                             <option value="all">All Status</option>
                             <option value="pending">Pending</option>
                             <option value="in-transit">In Transit</option>
@@ -175,11 +175,11 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Tracking Number *</label>
-                        <input type="text" id="trackingNumber" required>
+                        <input type="text" title="trackingNumber" id="trackingNumber" required>
                     </div>
                     <div class="form-group">
                         <label>Status *</label>
-                        <select id="status" required>
+                        <select id="status" title="status" required>
                             <option value="pending">Pending</option>
                             <option value="in-transit">In Transit</option>
                             <option value="delivered">Delivered</option>
@@ -187,37 +187,37 @@
                     </div>
                     <div class="form-group">
                         <label>Sender Name *</label>
-                        <input type="text" id="senderName" required>
+                        <input type="text" title="senderName" id="senderName" required>
                     </div>
                     <div class="form-group">
                         <label>Receiver Name *</label>
-                        <input type="text" id="receiverName" required>
+                        <input type="text" title="receiverName" id="receiverName" required>
                     </div>
                     <div class="form-group">
                         <label>Origin City *</label>
-                        <input type="text" id="originCity" required>
+                        <input type="text" title="originCity" id="originCity" required>
                     </div>
                     <div class="form-group">
                         <label>Destination City *</label>
-                        <input type="text" id="destinationCity" required>
+                        <input type="text" title="destinationCity" id="destinationCity" required>
                     </div>
                     <div class="form-group">
                         <label>Current Location *</label>
-                        <input type="text" id="currentLocation" required>
+                        <input type="text" title="currentLocation id="currentLocation" required>
                         <small class="form-hint">This will update the live tracking map</small>
                     </div>
                     <div class="form-group">
                         <label>Estimated Delivery *</label>
-                        <input type="date" id="estimatedDelivery" required>
+                        <input type="date" title="estimatedDelivery" id="estimatedDelivery" required>
                     </div>
                     <div class="form-group">
                         <label>Latitude *</label>
-                        <input type="number" id="latitude" step="0.0001" required>
+                        <input type="number" title="latitude" id="latitude" step="0.0001" required>
                         <small class="form-hint">Example: 33.4484 (Phoenix)</small>
                     </div>
                     <div class="form-group">
                         <label>Longitude *</label>
-                        <input type="number" id="longitude" step="0.0001" required>
+                        <input type="number" title="longitude" id="longitude" step="0.0001" required>
                         <small class="form-hint">Example: -112.0740 (Phoenix)</small>
                     </div>
                 </div>

@@ -291,7 +291,7 @@ const products = [
     category: "boxes",
     price: 12.99,
     rating: 5,
-    image: "/public/large-brown-cardboard-shipping-box.jpg",
+    image: "public/large-brown-cardboard-shipping-box.jpg",
     description: "Heavy-duty corrugated cardboard, 24x18x12 inches",
   },
   {
@@ -300,7 +300,7 @@ const products = [
     category: "boxes",
     price: 24.99,
     rating: 5,
-    image: "/public/stack-of-medium-cardboard-boxes.jpg",
+    image: "public/stack-of-medium-cardboard-boxes.jpg",
     description: "Perfect for standard shipments, 16x12x10 inches",
   },
   {
@@ -309,7 +309,7 @@ const products = [
     category: "packaging",
     price: 15.99,
     rating: 4,
-    image: "/public/bubble-wrap-roll-packaging-material.jpg",
+    image: "public/bubble-wrap-roll-packaging-material.jpg",
     description: "Premium air bubble cushioning, 12 inch width",
   },
   {
@@ -318,7 +318,7 @@ const products = [
     category: "labels",
     price: 18.99,
     rating: 5,
-    image: "/public/brown-packing-tape-rolls.jpg",
+    image: "public/brown-packing-tape-rolls.jpg",
     description: "2 inch width, strong adhesive, 110 yards per roll",
   },
   {
@@ -336,7 +336,7 @@ const products = [
     category: "packaging",
     price: 14.99,
     rating: 4,
-    image: "/public/white-biodegradable-packing-peanuts.jpg",
+    image: "public/white-biodegradable-packing-peanuts.jpg",
     description: "Eco-friendly void fill, 7 cubic feet",
   },
   {
@@ -345,7 +345,7 @@ const products = [
     category: "equipment",
     price: 45.99,
     rating: 5,
-    image: "/public/digital-shipping-scale-with-lcd-display.jpg",
+    image: "public/digital-shipping-scale-with-lcd-display.jpg",
     description: "LCD display, accurate to 0.1oz, battery powered",
   },
   {
@@ -354,7 +354,7 @@ const products = [
     category: "labels",
     price: 12.99,
     rating: 5,
-    image: "/public/white-shipping-address-label-roll.jpg",
+    image: "public/white-shipping-address-label-roll.jpg",
     description: "Self-adhesive, 4x6 inches, compatible with all printers",
   },
   {
@@ -372,7 +372,7 @@ const products = [
     category: "equipment",
     price: 9.99,
     rating: 4,
-    image: "/public/yellow-safety-box-cutter-knife.jpg",
+    image: "public/yellow-safety-box-cutter-knife.jpg",
     description: "Retractable blade, ergonomic grip, includes 5 blades",
   },
   {
@@ -381,7 +381,7 @@ const products = [
     category: "packaging",
     price: 22.99,
     rating: 5,
-    image: "/public/clear-stretch-wrap-film-roll.jpg",
+    image: "public/clear-stretch-wrap-film-roll.jpg",
     description: "18 inch width, 1500ft length, clear plastic",
   },
   {
@@ -390,7 +390,7 @@ const products = [
     category: "equipment",
     price: 129.99,
     rating: 5,
-    image: "/public/thermal-label-printer-machine.jpg",
+    image: "public/thermal-label-printer-machine.jpg",
     description: "4x6 labels, USB connection, high-speed printing",
   },
 ]
@@ -569,3 +569,5 @@ window.addEventListener("beforeunload", () => {
     clearInterval(trackingInterval)
   }
 })
+
+
