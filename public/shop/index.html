@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - UPS-Exglobal</title>
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+     <!-- Navigation  -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>UPS-Exglobal</span>
+                </div>
+                <ul class="nav-links">
+                 <li><a href="/index.html" class="active">Home</a></li>
+                    <li><a href="/public/Track/index.html">Track</a></li>
+                    <li><a href="/public/ship/index.html">Ship Now</a></li>
+                    <li><a href="/public/shop/index.html">Shop</a></li>
+                    <li><a href="/public/service/index.html">Services</a></li>
+                    <li><a href="/public/about/index.html">About</a></li>
+                    <li><a href="/public/contact/index.html">Contact</a></li>
+                    <li><a href="/public/admin/index.html">Admin</a></li>
+                    <li><a href="/public/login/index.html" class="btn-login">Login</a></li>
+                </ul>
+                <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+     <!-- Shop Page Content  -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Shipping Supplies</h1>
+            <p>Everything you need for safe and secure shipping</p>
+        </div>
+    </section>
+
+    <section class="shop-content">
+        <div class="container">
+            <div class="shop-filters">
+                <div class="filter-group">
+                    <label>Category:</label>
+                    <select id="categoryFilter" onchange="filterProducts()">
+                        <option value="all">All Products</option>
+                        <option value="boxes">Boxes</option>
+                        <option value="packaging">Packaging Materials</option>
+                        <option value="labels">Labels & Tape</option>
+                        <option value="equipment">Equipment</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <input type="text" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+                </div>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+
+            <div class="products-grid" id="productsGrid">
+                 Products grid will be populated with better quality images 
+            </div>
+        </div>
+    </section>
+
+     <!-- Shopping Cart Modal  -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content cart-modal">
+            <div class="modal-header">
+                <h2>Shopping Cart</h2>
+                <button class="close-btn" onclick="toggleCart()">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <p class="empty-cart">Your cart is empty</p>
+            </div>
+            <div class="cart-total">
+                <strong>Total:</strong>
+                <span id="cartTotal">$0.00</span>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn btn-primary" onclick="checkout()"><i class="fas fa-credit-card"></i> Checkout</button>
+                <button class="btn btn-secondary" onclick="toggleCart()">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+
+     <!-- Footer  -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>UPS-Exglobal</h3>
+                    <p>Your trusted partner for global shipping and logistics solutions.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="/public/ship/index.html">Air Freight</a></li>
+                        <li><a href="/public/ship/index.html">Ocean Freight</a></li>
+                        <li><a href="/public/ship/index.html">Ground Shipping</a></li>
+                        <li><a href="/public/ship/index.html">Warehousing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/public/about/index.html">About Us</a></li>
+                        <li><a href="/public/contact/index.html">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/public/Track/index.html">Track Package</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Shipping Rates</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Phoenix, AZ</li>
+                        <li><i class="fas fa-phone"></i> 1-800-UPS-EXGL</li>
+                        <li><i class="fas fa-envelope"></i> info@ups-exglobal.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 UPS-Exglobal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/script.js"></script>
+</body>
+</html>

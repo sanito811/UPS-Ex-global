@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPS-Exglobal - Global Shipping & Logistics</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+     <!-- Navigation  -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>UPS-Exglobal</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="public/Track/index.html">Track</a></li>
+                    <li><a href="public/ship/index.html">Ship Now</a></li>
+                    <li><a href="public/shop/index.html">Shop</a></li>
+                    <li><a href="public/service/index.html">Services</a></li>
+                    <li><a href="public/about/index.html">About</a></li>
+                    <li><a href="public/contact/index.html">Contact</a></li>
+                    <li><a href="public/admin/index.html">Admin</a></li>
+                    <li><a href="public/login/index.html" class="btn-login">Login</a></li>
+                </ul>
+                <button class="mobile-menu-btn" type="button" title="toggleMobileMenu" onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+     <!-- Hero Section  -->
+    <section class="hero">
+        <div class="hero-background"></div>
+        <div class="floating-icons">
+            <i class="fas fa-truck icon-1"></i>
+            <i class="fas fa-plane icon-2"></i>
+            <i class="fas fa-ship icon-3"></i>
+            <i class="fas fa-box icon-4"></i>
+        </div>
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Global Shipping Made Simple</h1>
+                <p class="hero-subtitle">Fast, reliable, and secure delivery to over 200 countries worldwide</p>
+                <div class="hero-buttons">
+                    <a href="public/ship/index.html" class="btn btn-primary">Ship Now</a>
+                    <a href="public/Track/index.html" class="btn btn-secondary">Track Package</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Tracking Section  -->
+    <section class="tracking-section">
+        <div class="container">
+            <div class="tracking-card">
+                <h2>Track Your Shipment</h2>
+                <p>Enter your tracking number to get real-time updates</p>
+                <form class="tracking-form" onsubmit="trackPackage(event)">
+                    <input type="text" id="trackingInput" placeholder="Enter tracking number (e.g., UPEX123456789)" required>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i> Track
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+     <!-- Features Section  -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Why Choose UPS-Exglobal?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>Fast Delivery</h3>
+                    <p>Express shipping options with delivery in 1-3 business days</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Secure Shipping</h3>
+                    <p>Full insurance coverage and secure handling of your packages</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Global Reach</h3>
+                    <p>Delivery to over 200 countries and territories worldwide</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer service for all your shipping needs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Services Section  -->
+    <section class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <img src="/public/commercial-airplane-flying-in-sky.jpg" alt="Air Freight">
+                    <div class="service-content">
+                        <h3>Air Freight</h3>
+                        <p>Fast international shipping via air cargo</p>
+                        <a href="/public/ship/index.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="/public/cargo-ship-at-sea.jpg" alt="Ocean Freight">
+                    <div class="service-content">
+                        <h3>Ocean Freight</h3>
+                        <p>Cost-effective shipping for large cargo</p>
+                        <a href="/public/ship/index.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="/public/delivery-truck-highway.png" alt="Ground Shipping">
+                    <div class="service-content">
+                        <h3>Ground Shipping</h3>
+                        <p>Reliable domestic delivery services</p>
+                        <a href="/public/ship/index.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <img src="/public/large-cardboard-shipping-box.jpg" alt="Warehousing">
+                    <div class="service-content">
+                        <h3>Warehousing</h3>
+                        <p>Secure storage and distribution solutions</p>
+                        <a href="/public/ship/index.html" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Testimonials Section  -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">What Our Customers Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"UPS-Exglobal has been our go-to shipping partner for years. Their reliability and customer service are unmatched!"</p>
+                    <div class="testimonial-author">
+                        <strong>Sarah Johnson</strong>
+                        <span>CEO, TechStart Inc.</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Fast delivery, great tracking system, and excellent customer support. Highly recommended for international shipping!"</p>
+                    <div class="testimonial-author">
+                        <strong>Michael Chen</strong>
+                        <span>Owner, Global Imports</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"The best shipping company I've worked with. Professional, efficient, and always on time."</p>
+                    <div class="testimonial-author">
+                        <strong>Emily Rodriguez</strong>
+                        <span>Director, Fashion Forward</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Their warehousing solutions have streamlined our entire supply chain. Couldn't be happier!"</p>
+                    <div class="testimonial-author">
+                        <strong>David Park</strong>
+                        <span>Logistics Manager, RetailCo</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Affordable rates without compromising on quality. UPS-Exglobal is our trusted shipping partner."</p>
+                    <div class="testimonial-author">
+                        <strong>Lisa Thompson</strong>
+                        <span>Founder, Artisan Goods</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"The tracking system is incredibly detailed. I always know exactly where my packages are."</p>
+                    <div class="testimonial-author">
+                        <strong>James Wilson</strong>
+                        <span>E-commerce Manager</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Partners Section  -->
+    <section class="partners">
+        <div class="container">
+            <h2 class="section-title">Trusted by Leading Companies</h2>
+            <div class="partners-grid">
+                <div class="partner-logo">TechCorp</div>
+                <div class="partner-logo">GlobalTrade</div>
+                <div class="partner-logo">FastShip</div>
+                <div class="partner-logo">RetailPro</div>
+                <div class="partner-logo">LogiTech</div>
+                <div class="partner-logo">WorldWide</div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Footer  -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>UPS-Exglobal</h3>
+                    <p>Your trusted partner for global shipping and logistics solutions.</p>
+                    <div class="social-links">
+                        <a href="#" title="fa-facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="#" title="fa-twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" title="fa-linkedin"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" title="fa-instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="/public/service/index.html">Air Freight</a></li>
+                        <li><a href="/public/service/index.html">Ocean Freight</a></li>
+                        <li><a href="/public/service/index.html">Ground Shipping</a></li>
+                        <li><a href="/public/service/index.html">Warehousing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="/public/about/index.html">About Us</a></li>
+                        <li><a href="/public/contact/index.html">Contact</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="/public/Track/index.html">Track Package</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Shipping Rates</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Phoenix, AZ</li>
+                        <li><i class="fas fa-phone"></i> 1-800-UPS-EXGL</li>
+                        <li><i class="fas fa-envelope"></i> info@ups-exglobal.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 UPS-Exglobal. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
