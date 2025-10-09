@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - UPS-Exglobal</title>
+    <link rel="stylesheet" href="../style.css">
+     <script src="../script.js" defer></script>
+      <script src="../admin.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body>
+     <!-- Navigation  -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-content">
+                <div class="logo">
+                    <i class="fas fa-shipping-fast"></i>
+                    <span>UPS-Exglobal Admin</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="../admin.html" class="active">Dashboard</a></li>
+                    <li><a href="../index.html">View Site</a></li>
+                    <li><a href="../admin-login.html" class="btn-login" onclick="handleLogout()">Logout</a></li>
+                </ul>
+                <button class="mobile-menu-btn" title="toggleMobileMenu"  onclick="toggleMobileMenu()">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+     <!-- Admin Dashboard  -->
+    <section class="admin-dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Admin Dashboard</h1>
+                <button class="btn btn-primary" onclick="showAddPackageModal()">
+                    <i class="fas fa-plus"></i> Add New Package
+                </button>
+            </div>
+
+             <!-- Stats Cards  -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #ff6b35;">
+                        <i class="fas fa-box"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="totalPackages">0</div>
+                        <div class="stat-label">Total Packages</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #4CAF50;">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="inTransit">0</div>
+                        <div class="stat-label">In Transit</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #2196F3;">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="delivered">0</div>
+                        <div class="stat-label">Delivered</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon" style="background: #FFC107;">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-info">
+                        <div class="stat-value" id="pending">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Live Map  -->
+            <div class="admin-section">
+                <h2><i class="fas fa-map-marked-alt"></i> Live Package Tracking Map</h2>
+                <div class="admin-map" id="adminMap">
+                    <div class="map-controls">
+                        <button class="map-btn" onclick="refreshMap()">
+                            <i class="fas fa-sync-alt"></i> Refresh
+                        </button>
+                        <button class="map-btn" onclick="toggleMapView()">
+                            <i class="fas fa-expand"></i> Full Screen
+                        </button>
+                        <label class="map-toggle">
+                            <input type="checkbox" id="autoRefresh" onchange="toggleAutoRefresh()" checked>
+                            <span>Auto-Refresh (5s)</span>
+                        </label>
+                    </div>
+                    <div id="leafletMap" class="leaflet-map-container"></div>
+                    <div class="map-info-panel">
+                        <div class="info-item">
+                            <i class="fas fa-circle" style="color: #ff6b35;"></i>
+                            <span>In Transit</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-circle" style="color: #4CAF50;"></i>
+                            <span>Delivered</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-circle" style="color: #FFC107;"></i>
+                            <span>Pending</span>
+                        </div>
+                        <div class="info-item">
+                            <strong>Last Update:</strong>
+                            <span id="mapLastUpdate">Just now</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+             <!-- Packages Table  -->
+            <div class="admin-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-boxes"></i> All Packages</h2>
+                    <div class="table-controls">
+                        <input type="text" id="searchPackages" placeholder="Search packages..." onkeyup="searchPackages()">
+                        <select id="statusFilter" title="filterPackages"  onchange="filterPackages()">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-transit">In Transit</option>
+                            <option value="delivered">Delivered</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Tracking #</th>
+                                <th>Sender</th>
+                                <th>Receiver</th>
+                                <th>Origin</th>
+                                <th>Destination</th>
+                                <th>Status</th>
+                                <th>Current Location</th>
+                                <th>Last Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="packagesTableBody">
+                             Packages will be loaded here 
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Add/Edit Package Modal  -->
+    <div id="packageModal" class="modal">
+        <div class="modal-content admin-modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Add New Package</h2>
+                <button class="close-btn" onclick="closePackageModal()">&times;</button>
+            </div>
+            <form id="packageForm" onsubmit="savePackage(event)">
+                <input type="hidden" id="packageId">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Tracking Number *</label>
+                        <input type="text" id="trackingNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Status *</label>
+                        <select id="status" required>
+                            <option value="pending">Pending</option>
+                            <option value="in-transit">In Transit</option>
+                            <option value="delivered">Delivered</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Sender Name *</label>
+                        <input type="text" id="senderName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Receiver Name *</label>
+                        <input type="text" id="receiverName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Origin City *</label>
+                        <input type="text" id="originCity" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Destination City *</label>
+                        <input type="text" id="destinationCity" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Current Location *</label>
+                        <input type="text" id="currentLocation" required>
+                        <small class="form-hint">This will update the live tracking map</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Estimated Delivery *</label>
+                        <input type="date" id="estimatedDelivery" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Latitude *</label>
+                        <input type="number" id="latitude" step="0.0001" required>
+                        <small class="form-hint">Example: 33.4484 (Phoenix)</small>
+                    </div>
+                    <div class="form-group">
+                        <label>Longitude *</label>
+                        <input type="number" id="longitude" step="0.0001" required>
+                        <small class="form-hint">Example: -112.0740 (Phoenix)</small>
+                    </div>
+                </div>
+                <div class="location-presets">
+                    <strong>Quick Location Presets:</strong>
+                    <button type="button" class="btn-preset" onclick="setLocation('Phoenix, AZ', 33.4484, -112.0740)">Phoenix</button>
+                    <button type="button" class="btn-preset" onclick="setLocation('Dallas, TX', 32.7767, -96.7970)">Dallas</button>
+                    <button type="button" class="btn-preset" onclick="setLocation('New York, NY', 40.7128, -74.0060)">New York</button>
+                    <button type="button" class="btn-preset" onclick="setLocation('Los Angeles, CA', 34.0522, -118.2437)">Los Angeles</button>
+                    <button type="button" class="btn-preset" onclick="setLocation('Chicago, IL', 41.8781, -87.6298)">Chicago</button>
+                </div>
+                <div class="modal-buttons">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save & Update Live Tracking
+                    </button>
+                    <button type="button" class="btn btn-secondary" onclick="closePackageModal()">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+     <!-- Footer  -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 UPS-Exglobal Admin Panel. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

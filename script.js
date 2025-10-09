@@ -1,7 +1,7 @@
 // Mobile Menu Toggle
 function toggleMobileMenu() {
   const navLinks = document.querySelector(".nav-links")
-  navLinks.style.display = navLinks.style.display === "grid" ? "none" : "grid"
+  navLinks.style.display = navLinks.style.display === "flex" ? "none" : "flex"
 }
 
 // Track Package from Homepage
@@ -14,6 +14,8 @@ function trackPackage(event) {
 // Track Package Detail Page
 let trackingInterval = null
 let currentTrackingNumber = null
+let customerTrackingMap = null
+let customerMarkers = {}
 
 function trackPackageDetail(event) {
   event.preventDefault()
@@ -61,121 +63,93 @@ function updateTrackingDisplay(pkg) {
     },
   )
 
-  // Update last updated time
   const lastUpdated = pkg.lastUpdated ? new Date(pkg.lastUpdated) : new Date()
   document.getElementById("lastUpdated").textContent = lastUpdated.toLocaleTimeString("en-US")
 
-  // Update status badge
   const statusBadge = document.getElementById("statusBadge")
   statusBadge.textContent = pkg.status.replace("-", " ").toUpperCase()
   statusBadge.className = `status-badge status-${pkg.status}`
 
-  // Update map
-  updateTrackingMap(pkg)
+  // Initialize or update Leaflet map
+  initCustomerTrackingMap(pkg)
 
-  // Create timeline
   createTimeline(pkg)
 }
 
-function updateTrackingMap(pkg) {
-  // City coordinates mapping
-  const cityCoords = {
-    "Phoenix, AZ": { x: 200, y: 350 },
-    "Dallas, TX": { x: 450, y: 380 },
-    "New York, NY": { x: 800, y: 250 },
-    "Los Angeles, CA": { x: 150, y: 320 },
-    "Chicago, IL": { x: 600, y: 280 },
-    "Miami, FL": { x: 750, y: 450 },
-    "Seattle, WA": { x: 120, y: 180 },
-    "Boston, MA": { x: 850, y: 240 },
-    "Houston, TX": { x: 420, y: 420 },
-    "Denver, CO": { x: 350, y: 300 },
-    "Atlanta, GA": { x: 680, y: 400 },
-    "San Francisco, CA": { x: 100, y: 300 },
+function initCustomerTrackingMap(pkg) {
+  const mapContainer = document.getElementById("customerTrackingMap")
+  if (!mapContainer) return
+
+  // Initialize map if not already done
+  if (!customerTrackingMap) {
+    customerTrackingMap = window.L.map("customerTrackingMap").setView([pkg.latitude, pkg.longitude], 5)
+
+    window.L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "© OpenStreetMap contributors",
+      maxZoom: 18,
+    }).addTo(customerTrackingMap)
+  } else {
+    // Clear existing markers
+    Object.values(customerMarkers).forEach((marker) => marker.remove())
+    customerMarkers = {}
   }
 
-  // Get coordinates or use lat/long
-  const originCoords = cityCoords[pkg.origin] || {
-    x: (((pkg.originLong || -112) + 125) / 60) * 1000,
-    y: ((50 - (pkg.originLat || 33)) / 25) * 600,
-  }
-  const destCoords = cityCoords[pkg.destination] || {
-    x: (((pkg.destLong || -74) + 125) / 60) * 1000,
-    y: ((50 - (pkg.destLat || 40)) / 25) * 600,
-  }
-  const currentCoords = cityCoords[pkg.currentLocation] || {
-    x: ((pkg.longitude + 125) / 60) * 1000,
-    y: ((50 - pkg.latitude) / 25) * 600,
-  }
+  // Add origin marker (green)
+  const originMarker = window.L.marker([pkg.originLat || 33.4484, pkg.originLong || -112.074], {
+    icon: window.L.divIcon({
+      className: "custom-marker origin-marker",
+      html: '<div class="marker-pin" style="background: #4CAF50;"></div><div class="marker-label">Origin</div>',
+      iconSize: [30, 42],
+      iconAnchor: [15, 42],
+    }),
+  }).addTo(customerTrackingMap)
+  customerMarkers.origin = originMarker
 
-  // Update route line
-  const routeLine = document.getElementById("routeLine")
-  routeLine.setAttribute("d", `M ${originCoords.x} ${originCoords.y} L ${destCoords.x} ${destCoords.y}`)
+  // Add current location marker (orange, pulsing)
+  const currentMarker = window.L.marker([pkg.latitude, pkg.longitude], {
+    icon: window.L.divIcon({
+      className: "custom-marker current-marker",
+      html: '<div class="marker-pin pulse" style="background: #ff6b35;"></div><div class="marker-label">Current</div>',
+      iconSize: [30, 42],
+      iconAnchor: [15, 42],
+    }),
+  }).addTo(customerTrackingMap)
+  customerMarkers.current = currentMarker
 
-  // Update origin marker
-  const originMarker = document.getElementById("originMarker")
-  originMarker.setAttribute("transform", `translate(${originCoords.x}, ${originCoords.y})`)
+  // Add destination marker (blue)
+  const destMarker = window.L.marker([pkg.destLat || 40.7128, pkg.destLong || -74.006], {
+    icon: window.L.divIcon({
+      className: "custom-marker dest-marker",
+      html: '<div class="marker-pin" style="background: #2196F3;"></div><div class="marker-label">Destination</div>',
+      iconSize: [30, 42],
+      iconAnchor: [15, 42],
+    }),
+  }).addTo(customerTrackingMap)
+  customerMarkers.dest = destMarker
 
-  // Update destination marker
-  const destMarker = document.getElementById("destinationMarker")
-  destMarker.setAttribute("transform", `translate(${destCoords.x}, ${destCoords.y})`)
-
-  // Update current location marker with animation
-  const currentMarker = document.getElementById("currentMarker")
-  currentMarker.setAttribute("transform", `translate(${currentCoords.x}, ${currentCoords.y})`)
-
-  // Update marker label
-  document.getElementById("markerLabel").textContent = pkg.currentLocation.split(",")[0]
-}
-
-function createTimeline(pkg) {
-  const timeline = document.getElementById("timeline")
-
-  // Generate timeline events based on package status
-  const events = [
+  // Draw route line
+  const routeLine = window.L.polyline(
+    [
+      [pkg.originLat || 33.4484, pkg.originLong || -112.074],
+      [pkg.latitude, pkg.longitude],
+      [pkg.destLat || 40.7128, pkg.destLong || -74.006],
+    ],
     {
-      date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
-      status: "Package Picked Up",
-      location: pkg.origin,
+      color: "#ff6b35",
+      weight: 3,
+      opacity: 0.6,
+      dashArray: "10, 10",
     },
-    {
-      date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
-      status: "In Transit",
-      location: "Sorting Facility",
-    },
-    {
-      date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
-      status: "In Transit",
-      location: pkg.currentLocation,
-    },
-  ]
+  ).addTo(customerTrackingMap)
+  customerMarkers.route = routeLine
 
-  if (pkg.status === "delivered") {
-    events.push({
-      date: new Date(),
-      status: "Delivered",
-      location: pkg.destination,
-    })
-  }
-
-  timeline.innerHTML = events
-    .map(
-      (event) => `
-    <div class="timeline-item">
-      <div class="timeline-date">${event.date.toLocaleDateString("en-US", {
-        month: "short",
-        day: "numeric",
-        year: "numeric",
-      })} - ${event.date.toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-      })}</div>
-      <div class="timeline-status">${event.status}</div>
-      <div class="timeline-location">${event.location}</div>
-    </div>
-  `,
-    )
-    .join("")
+  // Fit map to show all markers
+  const bounds = window.L.latLngBounds([
+    [pkg.originLat || 33.4484, pkg.originLong || -112.074],
+    [pkg.latitude, pkg.longitude],
+    [pkg.destLat || 40.7128, pkg.destLong || -74.006],
+  ])
+  customerTrackingMap.fitBounds(bounds, { padding: [50, 50] })
 }
 
 function refreshTracking() {
@@ -216,7 +190,7 @@ document.addEventListener("DOMContentLoaded", () => {
       event.preventDefault()
 
       // Generate tracking number
-      const trackingNumber = "UPEX" + Math.random().toString(36).substr(2, 9).toUpperCase()
+      const trackingNumber = "UEX" + Math.random().toString(36).substr(2, 9).toUpperCase()
 
       // Get form data
       const formData = new FormData(shipmentForm)
@@ -287,111 +261,138 @@ function downloadReceipt() {
 const products = [
   {
     id: 1,
-    name: "Premium Cardboard Box - Large",
-    category: "boxes",
-    price: 12.99,
+    name: "iPhone 15 Pro Max",
+    category: "phones",
+    price: 1199.99,
     rating: 5,
-    image: "public/large-brown-cardboard-shipping-box.jpg",
-    description: "Heavy-duty corrugated cardboard, 24x18x12 inches",
+    image: "image/iphone-15-pro-max-titanium.jpg",
+    description: "256GB, Titanium Blue, A17 Pro chip, 48MP camera",
   },
   {
     id: 2,
-    name: "Medium Box Pack (10 Pack)",
-    category: "boxes",
-    price: 24.99,
+    name: "Samsung Galaxy S24 Ultra",
+    category: "phones",
+    price: 1299.99,
     rating: 5,
-    image: "public/stack-of-medium-cardboard-boxes.jpg",
-    description: "Perfect for standard shipments, 16x12x10 inches",
+    image: "image/samsung-galaxy-s24-ultra.jpg",
+    description: "512GB, Titanium Gray, S Pen included, 200MP camera",
   },
   {
     id: 3,
-    name: "Bubble Wrap Roll - 50ft",
-    category: "packaging",
-    price: 15.99,
-    rating: 4,
-    image: "public/bubble-wrap-roll-packaging-material.jpg",
-    description: "Premium air bubble cushioning, 12 inch width",
+    name: "MacBook Pro 16-inch M3",
+    category: "laptops",
+    price: 2499.99,
+    rating: 5,
+    image: "image/macbook-pro-16-m3-space-black.jpg",
+    description: "M3 Max chip, 36GB RAM, 1TB SSD, Space Black",
   },
   {
     id: 4,
-    name: "Heavy Duty Packing Tape (6 Pack)",
-    category: "labels",
-    price: 18.99,
+    name: "Dell XPS 15",
+    category: "laptops",
+    price: 1899.99,
     rating: 5,
-    image: "public/brown-packing-tape-rolls.jpg",
-    description: "2 inch width, strong adhesive, 110 yards per roll",
+    image: "image/dell-xps-15-laptop.jpg",
+    description: "Intel i9, 32GB RAM, 1TB SSD, 4K OLED display",
   },
   {
     id: 5,
-    name: "Fragile Warning Labels (100 Pack)",
-    category: "labels",
-    price: 8.99,
-    rating: 4,
-    image: "public/red-fragile-warning-sticker-labels.jpg",
-    description: "Bright red warning stickers, 4x6 inches",
+    name: "iPad Pro 12.9-inch M2",
+    category: "tablets",
+    price: 1099.99,
+    rating: 5,
+    image: "image/ipad-pro-12-9-m2.jpg",
+    description: "256GB, Space Gray, M2 chip, Liquid Retina XDR",
   },
   {
     id: 6,
-    name: "Biodegradable Packing Peanuts",
-    category: "packaging",
-    price: 14.99,
+    name: "Samsung Galaxy Tab S9 Ultra",
+    category: "tablets",
+    price: 1199.99,
     rating: 4,
-    image: "public/white-biodegradable-packing-peanuts.jpg",
-    description: "Eco-friendly void fill, 7 cubic feet",
+    image: "image/samsung-galaxy-tab-s9-ultra.jpg",
+    description: "512GB, Graphite, 14.6-inch AMOLED, S Pen included",
   },
   {
     id: 7,
-    name: "Digital Shipping Scale - 110lb",
-    category: "equipment",
-    price: 45.99,
+    name: "Sony WH-1000XM5 Headphones",
+    category: "audio",
+    price: 399.99,
     rating: 5,
-    image: "public/digital-shipping-scale-with-lcd-display.jpg",
-    description: "LCD display, accurate to 0.1oz, battery powered",
+    image: "image/sony-wh-1000xm5-headphones.jpg",
+    description: "Wireless, Noise Cancelling, 30hr battery, Black",
   },
   {
     id: 8,
-    name: "Shipping Address Labels (500 Pack)",
-    category: "labels",
-    price: 12.99,
+    name: "AirPods Pro (2nd Gen)",
+    category: "audio",
+    price: 249.99,
     rating: 5,
-    image: "public/white-shipping-address-label-roll.jpg",
-    description: "Self-adhesive, 4x6 inches, compatible with all printers",
+    image: "image/airpods-pro-2nd-gen.jpg",
+    description: "Active Noise Cancellation, USB-C, Spatial Audio",
   },
   {
     id: 9,
-    name: "Foam Wrap Sheets (50 Pack)",
-    category: "packaging",
-    price: 19.99,
+    name: "Canon EOS R5",
+    category: "cameras",
+    price: 3899.99,
     rating: 5,
-    image: "public/white-foam-wrap-protective-sheets.jpg",
-    description: "Protective foam padding, 12x12 inches",
+    image: "image/canon-eos-r5-camera.jpg",
+    description: "45MP Full-Frame, 8K video, IBIS, RF mount",
   },
   {
     id: 10,
-    name: "Box Cutter Safety Knife",
-    category: "equipment",
-    price: 9.99,
-    rating: 4,
-    image: "public/yellow-safety-box-cutter-knife.jpg",
-    description: "Retractable blade, ergonomic grip, includes 5 blades",
+    name: "Sony A7 IV",
+    category: "cameras",
+    price: 2498.99,
+    rating: 5,
+    image: "image/sony-a7-iv-camera.jpg",
+    description: "33MP Full-Frame, 4K 60fps, 5-axis stabilization",
   },
   {
     id: 11,
-    name: "Stretch Wrap Film Roll",
-    category: "packaging",
-    price: 22.99,
+    name: "Apple Watch Ultra 2",
+    category: "accessories",
+    price: 799.99,
     rating: 5,
-    image: "public/clear-stretch-wrap-film-roll.jpg",
-    description: "18 inch width, 1500ft length, clear plastic",
+    image: "image/apple-watch-ultra-2.jpg",
+    description: "49mm Titanium, GPS + Cellular, Action Button",
   },
   {
     id: 12,
-    name: "Thermal Label Printer",
-    category: "equipment",
-    price: 129.99,
+    name: "Logitech MX Master 3S",
+    category: "accessories",
+    price: 99.99,
     rating: 5,
-    image: "public/thermal-label-printer-machine.jpg",
-    description: "4x6 labels, USB connection, high-speed printing",
+    image: "image/logitech-mx-master-3s-mouse.jpg",
+    description: "Wireless mouse, 8K DPI, Quiet clicks, USB-C",
+  },
+  {
+    id: 13,
+    name: "Google Pixel 8 Pro",
+    category: "phones",
+    price: 999.99,
+    rating: 4,
+    image: "image/google-pixel-8-pro.jpg",
+    description: "256GB, Obsidian, Google Tensor G3, AI features",
+  },
+  {
+    id: 14,
+    name: "Microsoft Surface Laptop 5",
+    category: "laptops",
+    price: 1599.99,
+    rating: 4,
+    image: "image/microsoft-surface-laptop-5.jpg",
+    description: "Intel i7, 16GB RAM, 512GB SSD, 13.5-inch touchscreen",
+  },
+  {
+    id: 15,
+    name: "Bose QuietComfort Ultra",
+    category: "audio",
+    price: 429.99,
+    rating: 5,
+    image: "image/bose-quietcomfort-ultra.jpg",
+    description: "Wireless, Spatial Audio, 24hr battery, Premium comfort",
   },
 ]
 
@@ -532,6 +533,20 @@ function checkout() {
   alert("Checkout functionality would be implemented here!")
 }
 
+// Ship Cart Items - integrates shop with shipping
+function shipCartItems() {
+  if (cart.length === 0) {
+    alert("Your cart is empty!")
+    return
+  }
+
+  // Save cart items to localStorage for shipping form
+  localStorage.setItem("itemsToShip", JSON.stringify(cart))
+
+  // Redirect to shipping form
+  window.location.href = "ship.html?from=shop"
+}
+
 // Contact Form
 function submitContactForm(event) {
   event.preventDefault()
@@ -558,6 +573,49 @@ function handleRegister(event) {
   alert("Registration functionality would be implemented here!")
 }
 
+// Admin Authentication Function
+function handleAdminLogin(event) {
+  event.preventDefault()
+
+  const username = document.getElementById("adminUsername").value
+  const password = document.getElementById("adminPassword").value
+
+  // Simple authentication (in production, this would be server-side)
+  if (username === "admin" && password === "admin123") {
+    // Set admin session
+    localStorage.setItem("adminLoggedIn", "true")
+    localStorage.setItem("adminLoginTime", new Date().toISOString())
+
+    // Redirect to admin dashboard
+    window.location.href = "admin.html"
+  } else {
+    alert("Invalid username or password!")
+  }
+}
+
+// Logout Function
+function handleLogout() {
+  localStorage.removeItem("adminLoggedIn")
+  localStorage.removeItem("adminLoginTime")
+}
+
+// Password Visibility Toggle
+function togglePasswordVisibility(inputId) {
+  const input = document.getElementById(inputId)
+  const button = input.nextElementSibling
+  const icon = button.querySelector("i")
+
+  if (input.type === "password") {
+    input.type = "text"
+    icon.classList.remove("fa-eye")
+    icon.classList.add("fa-eye-slash")
+  } else {
+    input.type = "password"
+    icon.classList.remove("fa-eye-slash")
+    icon.classList.add("fa-eye")
+  }
+}
+
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {
   loadProducts()
@@ -570,4 +628,53 @@ window.addEventListener("beforeunload", () => {
   }
 })
 
+// Create Timeline
+function createTimeline(pkg) {
+  const timeline = document.getElementById("timeline")
 
+  // Generate timeline events based on package status
+  const events = [
+    {
+      date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
+      status: "Package Picked Up",
+      location: pkg.origin,
+    },
+    {
+      date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000),
+      status: "In Transit",
+      location: "Sorting Facility",
+    },
+    {
+      date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000),
+      status: "In Transit",
+      location: pkg.currentLocation,
+    },
+  ]
+
+  if (pkg.status === "delivered") {
+    events.push({
+      date: new Date(),
+      status: "Delivered",
+      location: pkg.destination,
+    })
+  }
+
+  timeline.innerHTML = events
+    .map(
+      (event) => `
+    <div class="timeline-item">
+      <div class="timeline-date">${event.date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+      })} - ${event.date.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      })}</div>
+      <div class="timeline-status">${event.status}</div>
+      <div class="timeline-location">${event.location}</div>
+    </div>
+  `,
+    )
+    .join("")
+}
