@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Check if session is valid (24 hours)
     if (!isLoggedIn || !loginTime) {
-      window.location.href = "admin-login.html"
+      window.location.href = "/adminlogin/index.html"
       return
     }
 
