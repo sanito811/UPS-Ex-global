@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function closeReceipt() {
   document.getElementById("receiptModal").classList.remove("active")
-  window.location.href = "index.html"
+  window.location.href = "/UPS-Ex-global/index.html"
 }
 
 function printReceipt() {
@@ -265,7 +265,7 @@ const products = [
     category: "phones",
     price: 1199.99,
     rating: 5,
-    image: "image/iphone-15-pro-max-titanium.jpg",
+    image: "/UPS-Ex-global/image/iphone-15-pro-max-titanium.jpg",
     description: "256GB, Titanium Blue, A17 Pro chip, 48MP camera",
   },
   {
@@ -274,7 +274,7 @@ const products = [
     category: "phones",
     price: 1299.99,
     rating: 5,
-    image: "image/samsung-galaxy-s24-ultra.jpg",
+    image: "/UPS-Ex-global/image/samsung-galaxy-s24-ultra.jpg",
     description: "512GB, Titanium Gray, S Pen included, 200MP camera",
   },
   {
@@ -283,7 +283,7 @@ const products = [
     category: "laptops",
     price: 2499.99,
     rating: 5,
-    image: "image/macbook-pro-16-m3-space-black.jpg",
+    image: "/UPS-Ex-global/image/macbook-pro-16-m3-space-black.jpg",
     description: "M3 Max chip, 36GB RAM, 1TB SSD, Space Black",
   },
   {
@@ -292,7 +292,7 @@ const products = [
     category: "laptops",
     price: 1899.99,
     rating: 5,
-    image: "image/dell-xps-15-laptop.jpg",
+    image: "/UPS-Ex-global/image/dell-xps-15-laptop.jpg",
     description: "Intel i9, 32GB RAM, 1TB SSD, 4K OLED display",
   },
   {
@@ -301,7 +301,7 @@ const products = [
     category: "tablets",
     price: 1099.99,
     rating: 5,
-    image: "image/ipad-pro-12-9-m2.jpg",
+    image: "/UPS-Ex-global/image/ipad-pro-12-9-m2.jpg",
     description: "256GB, Space Gray, M2 chip, Liquid Retina XDR",
   },
   {
@@ -310,7 +310,7 @@ const products = [
     category: "tablets",
     price: 1199.99,
     rating: 4,
-    image: "image/samsung-galaxy-tab-s9-ultra.jpg",
+    image: "/UPS-Ex-global/image/samsung-galaxy-tab-s9-ultra.jpg",
     description: "512GB, Graphite, 14.6-inch AMOLED, S Pen included",
   },
   {
@@ -319,7 +319,7 @@ const products = [
     category: "audio",
     price: 399.99,
     rating: 5,
-    image: "image/sony-wh-1000xm5-headphones.jpg",
+    image: "/UPS-Ex-global/image/sony-wh-1000xm5-headphones.jpg",
     description: "Wireless, Noise Cancelling, 30hr battery, Black",
   },
   {
@@ -328,7 +328,7 @@ const products = [
     category: "audio",
     price: 249.99,
     rating: 5,
-    image: "image/airpods-pro-2nd-gen.jpg",
+    image: "/UPS-Ex-global/image/airpods-pro-2nd-gen.jpg",
     description: "Active Noise Cancellation, USB-C, Spatial Audio",
   },
   {
@@ -337,7 +337,7 @@ const products = [
     category: "cameras",
     price: 3899.99,
     rating: 5,
-    image: "image/canon-eos-r5-camera.jpg",
+    image: "/UPS-Ex-global/image/canon-eos-r5-camera.jpg",
     description: "45MP Full-Frame, 8K video, IBIS, RF mount",
   },
   {
@@ -346,7 +346,7 @@ const products = [
     category: "cameras",
     price: 2498.99,
     rating: 5,
-    image: "image/sony-a7-iv-camera.jpg",
+    image: "/UPS-Ex-global/image/sony-a7-iv-camera.jpg",
     description: "33MP Full-Frame, 4K 60fps, 5-axis stabilization",
   },
   {
@@ -355,7 +355,7 @@ const products = [
     category: "accessories",
     price: 799.99,
     rating: 5,
-    image: "image/apple-watch-ultra-2.jpg",
+    image: "/UPS-Ex-global/image/apple-watch-ultra-2.jpg",
     description: "49mm Titanium, GPS + Cellular, Action Button",
   },
   {
@@ -364,7 +364,7 @@ const products = [
     category: "accessories",
     price: 99.99,
     rating: 5,
-    image: "image/logitech-mx-master-3s-mouse.jpg",
+    image: "/UPS-Ex-global/image/logitech-mx-master-3s-mouse.jpg",
     description: "Wireless mouse, 8K DPI, Quiet clicks, USB-C",
   },
   {
@@ -373,7 +373,7 @@ const products = [
     category: "phones",
     price: 999.99,
     rating: 4,
-    image: "image/google-pixel-8-pro.jpg",
+    image: "/UPS-Ex-global/image/google-pixel-8-pro.jpg",
     description: "256GB, Obsidian, Google Tensor G3, AI features",
   },
   {
@@ -382,7 +382,7 @@ const products = [
     category: "laptops",
     price: 1599.99,
     rating: 4,
-    image: "image/microsoft-surface-laptop-5.jpg",
+    image: "/UPS-Ex-global/image/microsoft-surface-laptop-5.jpg",
     description: "Intel i7, 16GB RAM, 512GB SSD, 13.5-inch touchscreen",
   },
   {
@@ -391,7 +391,7 @@ const products = [
     category: "audio",
     price: 429.99,
     rating: 5,
-    image: "image/bose-quietcomfort-ultra.jpg",
+    image: "/UPS-Ex-global/image/bose-quietcomfort-ultra.jpg",
     description: "Wireless, Spatial Audio, 24hr battery, Premium comfort",
   },
 ]
